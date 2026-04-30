@@ -1,42 +1,52 @@
 
 import { useState } from 'react'
-const Forms = ({obtener}) => {
-      const [form, setForm] = useState({ nombre: "",id: "" })
-    const handleChange = (e) =>
-    
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-                id: Date.now()
-        })
-    
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(form)
-        obtener(form)
-        setForm({ nombre: "", id: "" })
-    }
-    return (
-        <div>
+const Forms = ({ obtener }) => {
+  const [form, setForm] = useState({ nombre: "", id: "" });
 
+  const handleChange = (e) =>
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+      id: Date.now()
+    });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!form.nombre.trim()) return;
+    obtener(form);
+    setForm({ nombre: "", id: "" });
+  };
 
+  return (
+    <div className="w-full">
+      <form 
+        onSubmit={handleSubmit}
+        className="flex items-center gap-2 bg-gray-900 p-2 rounded-xl shadow-md"
+      >
+       
+        <input
+          type="text"
+          name="nombre"
+          value={form.nombre}
+          onChange={handleChange}
+          placeholder="Nuevo chat..."
+          className="flex-1 p-2 rounded-lg bg-gray-800 text-white 
+                     placeholder-gray-400 outline-none 
+                     focus:ring-2 focus:ring-blue-500"
+        />
 
+        <button
+          type="submit"
+          className="px-4 py-2 rounded-lg bg-blue-600 text-white 
+                     font-medium hover:bg-blue-700 
+                     active:scale-95 transition"
+        >
+          +
+        </button>
+      </form>
+    </div>
+  );
+};
 
+export default Forms;
 
-            <form onSubmit={handleSubmit}>
-                <input className='p-1 bg-blue-950 rounded-xl' type="text" onChange={handleChange} name="nombre" value={form.nombre} placeholder='ingrese su nombre'>
-                </input>
-               
-
-                <input type="submit" ></input>
-
-            </form>
-
-
-        </div>
-    )
-}
-
-
-export default Forms

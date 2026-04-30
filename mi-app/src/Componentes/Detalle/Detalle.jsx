@@ -1,45 +1,81 @@
-import  { useState } from 'react'
-
-import { useContext } from 'react'
-import ContextContactos from '../../context/Context'
+import { useState, useRef, useEffect } from 'react';
+import { useContext } from 'react';
+import ContextContactos from '../../context/Context';
 
 const Detalle = () => {
   const { contactos, chatActivo, enviarMensaje } = useContext(ContextContactos);
   const [input, setInput] = useState("");
+  const bottomRef = useRef(null);
 
   const chat = contactos.find(c => c.id === chatActivo);
 
-  if (!chat) return <p>Selecciona un chat</p>;
+ 
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chat?.mensajes]);
+
+  if (!chat) {
+    return (
+      <div className="flex items-center justify-center h-full bg-gray-950 text-gray-400">
+        Seleccioná un chat 👈
+      </div>
+    );
+  }
 
   return (
-    <div className='flex flex-col bg-blue-950 p-4 h-full'>
-      <h2 className='text-lime-400 font-bold'>{chat.nombre}</h2>
+    <div className="flex flex-col h-full bg-gray-950 text-green-500">
 
-      <div className='flex-1 overflow-y-auto mb-4 bg-gray-900 p-2 rounded'>
+    
+      <div className="p-4 border-b border-gray-800 bg-gray-900">
+        <h2 className="font-semibold text-lg">{chat.nombre}</h2>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-4 space-y-2">
         {chat.mensajes.map((msg, i) => (
           <div
             key={i}
-            style={{
-              textAlign: msg.autor === "user" ? "right" : "left"
-            }}
+            className={`flex ${msg.autor === "user" ? "justify-end" : "justify-start"}`}
           >
-            {msg.texto}
+            <div
+              className={`px-3 py-2 rounded-lg max-w-xs text-sm shadow
+                ${msg.autor === "user"
+                  ? "bg-green-500 text-black"
+                  : "bg-gray-800 text-white"}
+              `}
+            >
+              {msg.texto}
+            </div>
           </div>
         ))}
+        <div ref={bottomRef}></div>
       </div>
 
-      <input className='bg-green-50 text-black p-2 mb-2'
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
+      <div className="p-3 border-t border-gray-800 bg-gray-900 flex gap-2">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Escribí un mensaje..."
+          className="flex-1 p-2 rounded-lg bg-gray-800 text-white 
+                     placeholder-gray-400 outline-none 
+                     focus:ring-2 focus:ring-green-500"
+        />
 
-      <button className='hover:bg-black' onClick={() => {
-        enviarMensaje(input);
-        setInput("");
-      }}>
-        Enviar
-      </button>
+        <button
+          onClick={() => {
+            if (!input.trim()) return;
+            enviarMensaje(input);
+            setInput("");
+          }}
+          className="px-4 py-2 bg-green-500 text-black rounded-lg 
+                     font-medium hover:bg-green-600 
+                     active:scale-95 transition"
+        >
+          Enviar
+        </button>
+      </div>
+
     </div>
   );
 };
-export default Detalle
+
+export default Detalle;

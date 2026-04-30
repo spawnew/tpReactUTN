@@ -3,6 +3,7 @@ import Home from './Componentes/Home'
 import { Provider } from './context/Context';
 import Detalle from './Componentes/Detalle/Detalle';
 import './App.css'
+import Navbar from './Componentes/Navbar/Navbar';
 
 function App() {
   
@@ -10,7 +11,7 @@ function App() {
   return (
     <><BrowserRouter>
       <Provider> 
-      
+      <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
         
