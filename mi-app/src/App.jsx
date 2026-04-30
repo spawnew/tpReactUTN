@@ -4,6 +4,7 @@ import { Provider } from './context/Context';
 import Detalle from './Componentes/Detalle/Detalle';
 import './App.css'
 import Navbar from './Componentes/Navbar/Navbar';
+import Footer from './Componentes/Footer/Footer';
 
 function App() {
   
@@ -18,7 +19,7 @@ function App() {
           <Route path='/detalle/:id' element={<Detalle />} />
         </Routes>
       
-      
+      <Footer />
       </Provider>
       </BrowserRouter>
     </>
