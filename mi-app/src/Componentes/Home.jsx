@@ -1,26 +1,24 @@
 import React from 'react'
 import Contactos from './Contactos/Contactos'
 import Detalle from './Detalle/Detalle'
+import { useContext } from 'react'
+import ContextContactos from '../context/Context'
 const Home = () => {
+  const { chatActivo } = useContext(ContextContactos);
+
   return (
-    // Definimos 4 columnas. El h1 ocupará la primera por defecto.
-    <div className="grid grid-cols-5 gap-4">
-      
-      <h1 className="col-3 text-2xl font-bold">Bienvenidos a mi sitio web</h1>
-      
-      <div className="col-2 bg-amber-100">
-        <aside className="h-dvh bg-gray-600 p-4">
-          <Contactos />
-        </aside>
+    <div className="grid grid-cols-5 h-screen overflow-hidden">
+      <div className="col-span-2 bg-gray-900 border-r border-gray-700 overflow-y-auto">
+        <Contactos />
       </div>
-
-      
-      <div className=" col-span-2 bg-amber-900 p-4">
-           <Detalle />
+      <div className="col-span-3 bg-gray-900">
+        {chatActivo ? <Detalle /> : (
+          <div className="flex h-full items-center justify-center text-gray-500">
+            Selecciona un contacto para iniciar el chat
+          </div>
+        )}
       </div>
-      
     </div>
-  )
-}
-
+  );
+};
 export default Home

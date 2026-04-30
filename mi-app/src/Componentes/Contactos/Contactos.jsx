@@ -2,27 +2,28 @@
 import Forms from '../Form/Forms'
 import { useContext } from 'react'
 import ContextContactos from '../../context/Context'
-import { Link } from 'react-router-dom'
-const Contactos = () => {
-   const { obtener, contactos } = useContext(ContextContactos)
 
+const Contactos = () => {
+   const { obtener, contactos, setChatActivo } = useContext(ContextContactos)
 
   
   
     return (
-        <div>Contactos
+        <div className='flex flex-col items-center'>Agregar Chat
             <Forms obtener={obtener} />
             
-            {contactos.map((contacto) => {
-                return (
-                    <div key={contacto.id}>
-                        <Link to={`/detalle/${contacto.id}`}>
-                            <h2>{contacto.nombre}</h2>
-                        </Link>
-                       
-                    </div>
-                )
-            })}
+           {contactos.map((contacto) => (
+  <div 
+    key={contacto.id} 
+    onClick={() => setChatActivo(contacto.id)} // Seteamos el chat activo aquí
+    style={{ cursor: 'pointer', padding: '10px', borderBottom: '1px solid #444' }}
+  >
+    <h2>{contacto.nombre}</h2>
+    <span style={{ color: contacto.estado === 'online' ? 'green' : 'gray' }}>
+      {contacto.estado}
+    </span>
+  </div>
+))}
     </div>
   )
 }
