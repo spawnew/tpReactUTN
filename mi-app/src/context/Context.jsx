@@ -40,7 +40,7 @@ const obtener = (data) => {
 
         return {
           ...c,
-          mensajes: [...c.mensajes, { texto: "Hola! 👋 ", autor: "bot" }]
+          mensajes: [...c.mensajes, { texto: `Hola! como estas ${c.nombre} 👋 `, autor: "bot" }]
         };
       })
     );

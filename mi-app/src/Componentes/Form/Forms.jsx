@@ -1,7 +1,7 @@
 
 import { useState } from 'react'
 const Forms = ({ obtener }) => {
-  const [form, setForm] = useState({ nombre: "", id: "" });
+  const [form, setForm] = useState({ nombre: "", id: "",mail:"" });
 
   const handleChange = (e) =>
     setForm({
@@ -14,14 +14,14 @@ const Forms = ({ obtener }) => {
     e.preventDefault();
     if (!form.nombre.trim()) return;
     obtener(form);
-    setForm({ nombre: "", id: "" });
+    setForm({ nombre: "", id: "",mail:"" });
   };
 
   return (
     <div className="w-full">
       <form 
         onSubmit={handleSubmit}
-        className="flex items-center gap-2 bg-gray-900 p-2 rounded-xl shadow-md"
+        className="flex flex-col md:flex-row  items-center gap-2 bg-gray-900 p-2 rounded-xl shadow-md"
       >
        
         <input
@@ -30,6 +30,16 @@ const Forms = ({ obtener }) => {
           value={form.nombre}
           onChange={handleChange}
           placeholder="Nuevo chat..."
+          className="flex-1 p-2 rounded-lg bg-gray-800 text-white 
+                     placeholder-gray-400 outline-none 
+                     focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="email"
+          name="mail"
+          value={form.mail}
+          onChange={handleChange}
+          placeholder="Correo electrónico..."
           className="flex-1 p-2 rounded-lg bg-gray-800 text-white 
                      placeholder-gray-400 outline-none 
                      focus:ring-2 focus:ring-blue-500"
