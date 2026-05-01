@@ -21,31 +21,45 @@ const obtener = (data) => {
             alert("El mensaje no puede estar vacio");
             return;
         }
-  setContactos(prev =>
-    prev.map(c => {
-      if (c.id !== chatActivo) return c;
+        setContactos(prev =>
+            prev.map(c => {
+                if (c.id !== chatActivo) return c;
 
-      return {
-        ...c,
-        mensajes: [...c.mensajes, { texto, autor: "user" }]
-      };
-    })
-  );
+                return {
+                    ...c,
+                    mensajes: [...c.mensajes, { texto, autor: "user" }]
+                };
+            })
+        );
 
- 
-  setTimeout(() => {
-    setContactos(prev =>
-      prev.map(c => {
-        if (c.id !== chatActivo) return c;
-
-        return {
-          ...c,
-          mensajes: [...c.mensajes, { texto: `Hola! como estas ${c.nombre} 👋 `, autor: "bot" }]
-        };
-      })
-    );
-  }, 1000);
-    };
+        const saludos = [
+            { texto: "¡Hola! ¿Cómo va todo?", link: null },
+            { texto: "¡Hola! mi faraon lo ayudare a crear su mazo:", link: "https://imperioyugioh.vercel.app/" },
+            { texto: "¡Hola! buzo o remera averigualo aqui:", link: "https://app-clima-jade.vercel.app/" },
+            { texto: "Hola como tas queres buscar un gift divertido?", link: "https://patitas-t-pitschool-d1ey.vercel.app/" },
+            { texto: "Hola es un buen dia para hacer deberes consulta tus tareas:", link: "https://lista-tarea-reducer-xiw5.vercel.app/" },
+            { texto: "Queres ver una peli mirate los estrenos del cine:", link: "https://luflix-wine.vercel.app/" }
+        ];
+    
+        const respuestaAleatoria = saludos[Math.floor(Math.random() * saludos.length)];
+    
+        setTimeout(() => {
+            setContactos(prev =>
+                prev.map(c => {
+                    if (c.id !== chatActivo) return c;
+                    return {
+                        ...c,
+                       
+                        mensajes: [...c.mensajes, {
+                            texto: respuestaAleatoria.texto,
+                            link: respuestaAleatoria.link,
+                            autor: "bot"
+                        }]
+                    };
+                })
+            );
+        }, 1000);
+    }
     const contact = {
   obtener,
   contactos,

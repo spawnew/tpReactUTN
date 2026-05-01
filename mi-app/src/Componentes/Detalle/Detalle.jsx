@@ -43,7 +43,17 @@ const Detalle = () => {
                   : "bg-gray-800 text-white"}
               `}
             >
-              {msg.texto}
+                    {msg.texto}
+                    {msg.link && (
+                      <a 
+                        href={msg.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:underline"
+                      >
+                        {msg.link}
+                      </a>
+                    )}
             </div>
           </div>
         ))}
