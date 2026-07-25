@@ -14,7 +14,7 @@ const FormUsuario = () => {
     if (!form.nombre.trim() || !form.email.trim()) return;
 
     await crearUsuario(form);
-    setForm({ nombre: "", email: "" }); // Limpia el formulario
+    setForm({ nombre: "", email: "" }); 
   };
 
   return (

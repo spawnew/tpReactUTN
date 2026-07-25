@@ -16,11 +16,10 @@ export const Provider = ({ children }) => {
     const [chatActivo, setChatActivo] = useState(null);
     const [mensajesActivos, setMensajesActivos] = useState([]);
     
-    // Estados para los usuarios
+  
     const [usuarios, setUsuarios] = useState([]);
     const [usuarioActualId, setUsuarioActualId] = useState(null);
 
-    // Cargar chats y usuarios al iniciar
     useEffect(() => {
         getChatsApi()
             .then(data => setContactos(data))
@@ -30,13 +29,13 @@ export const Provider = ({ children }) => {
             .then(data => {
                 setUsuarios(data);
                 if (data && data.length > 0) {
-                    setUsuarioActualId(data[0]._id); // Selecciona el primero por defecto
+                    setUsuarioActualId(data[0]._id); 
                 }
             })
             .catch(err => console.error("Error al cargar usuarios:", err));
     }, []);
 
-    // Cargar mensajes al cambiar de chat
+  
     useEffect(() => {
         if (!chatActivo) return;
         getMensajesApi(chatActivo)
@@ -44,18 +43,18 @@ export const Provider = ({ children }) => {
             .catch(err => console.error("Error al cargar mensajes:", err));
     }, [chatActivo]);
 
-    // Crear un nuevo Usuario
+   
     const crearUsuario = async (dataForm) => {
         try {
             const nuevoUsuario = await crearUsuarioApi(dataForm);
             setUsuarios(prev => [...prev, nuevoUsuario]);
-            setUsuarioActualId(nuevoUsuario._id); // Lo pone como usuario activo al crearlo
+            setUsuarioActualId(nuevoUsuario._id); 
         } catch (error) {
             console.error("Error al crear usuario:", error);
         }
     };
 
-    // Crear un nuevo Chat
+   
     const obtener = async (dataForm) => {
         try {
             const nuevoChat = await crearChatApi({
@@ -68,13 +67,13 @@ export const Provider = ({ children }) => {
         }
     };
 
-    // 👈 FUNCIÓN PARA ELIMINAR CHAT (Restaurada)
+  
     const eliminarChat = async (chatId) => {
         try {
             await deleteChatApi(chatId);
             setContactos(prev => prev.filter(c => c._id !== chatId));
             
-            // Si el chat borrado era el que estaba activo, lo cerramos
+           
             if (chatActivo === chatId) {
                 setChatActivo(null);
                 setMensajesActivos([]);
@@ -84,7 +83,7 @@ export const Provider = ({ children }) => {
         }
     };
 
-    // Enviar mensaje usando el usuario seleccionado
+  
     const enviarMensaje = async (texto) => {
         if (texto.trim().length === 0 || !chatActivo || !usuarioActualId) return;
 
@@ -112,7 +111,7 @@ export const Provider = ({ children }) => {
         usuarioActualId,
         setUsuarioActualId,
         crearUsuario,
-        eliminarChat // 👈 Exportado correctamente en el contexto
+        eliminarChat 
     };
 
     return (

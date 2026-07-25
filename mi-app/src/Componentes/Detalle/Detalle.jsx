@@ -6,7 +6,7 @@ const Detalle = () => {
   const [input, setInput] = useState("");
   const bottomRef = useRef(null);
 
-  // Buscamos el chat usando '_id' de MongoDB
+ 
   const chat = contactos.find(c => c._id === chatActivo);
 
   useEffect(() => {
@@ -24,16 +24,16 @@ const Detalle = () => {
 
   return (
     <div className="flex flex-col h-full bg-gray-950">
-      {/* Cabecera del Chat */}
+    
       <div className="p-4 border-b border-gray-800 bg-gray-900/80 backdrop-blur flex items-center shadow-sm">
         <h2 className="font-bold text-white text-base">{chat.nombre}</h2>
       </div>
 
-      {/* Historial de Mensajes */}
+    
      <div className="flex-1 overflow-y-auto p-4 space-y-3">
   {mensajesActivos.map((msg, i) => (
     <div key={msg._id || i} className="flex flex-col items-start">
-      {/* 👈 Mostramos el nombre del usuario que envió el mensaje */}
+    
       <span className="text-xs text-blue-400 font-medium ml-1 mb-1">
         {msg.userId?.nombre || "Desconocido"}
       </span>
@@ -46,7 +46,7 @@ const Detalle = () => {
 </div>
       
 
-      {/* Input para Enviar Mensaje */}
+    
       <div className="p-4 border-t border-gray-800 bg-gray-900 flex gap-2 items-center">
         <input
           value={input}

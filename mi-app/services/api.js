@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:3000";
 
-// --- USUARIOS ---
+
 export const getUsuariosApi = async () => {
     const res = await fetch(`${API_URL}/usuarios`);
     const data = await res.json();
@@ -24,7 +24,7 @@ export const deleteChatApi = async (chatId) => {
     return data.data;
 };
 
-// --- CHATS ---
+
 export const getChatsApi = async () => {
     const res = await fetch(`${API_URL}/chat`);
     const data = await res.json();
@@ -41,7 +41,7 @@ export const crearChatApi = async (chatData) => {
     return data.data;
 };
 
-// --- MENSAJES ---
+
 export const getMensajesApi = async (chatId) => {
     const res = await fetch(`${API_URL}/mensajes/${chatId}`);
     const data = await res.json();

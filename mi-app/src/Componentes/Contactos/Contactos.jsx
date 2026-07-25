@@ -9,7 +9,7 @@ const Contactos = () => {
         contactos, 
         setChatActivo, 
         chatActivo, 
-        eliminarChat, // 👈 Traemos la función para borrar
+        eliminarChat, 
         usuarios, 
         usuarioActualId, 
         setUsuarioActualId 
@@ -18,7 +18,7 @@ const Contactos = () => {
     return (
         <div className='flex flex-col h-full p-4 bg-gray-900 border-r border-gray-800 overflow-y-auto text-white'>
             
-            {/* SECCIÓN 1: USUARIOS REGISTRADOS Y SELECTOR */}
+          
             <div className="mb-4 pb-4 border-b border-gray-800">
                 <h2 className='text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider'>1. Tus Usuarios</h2>
                 
@@ -41,13 +41,13 @@ const Contactos = () => {
                 <FormUsuario />
             </div>
 
-            {/* SECCIÓN 2: CREAR CHAT */}
+         
             <div className="mb-4 pb-4 border-b border-gray-800">
                 <h2 className='text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider'>2. Crear Chat</h2>
                 <Forms obtener={obtener} />
             </div>
 
-            {/* SECCIÓN 3: LISTA DE CHATS */}
+         
             <h2 className='text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider'>Conversaciones</h2>
             <div className='flex-1 space-y-2 mt-1'>
                 {contactos.map((contacto) => (
@@ -67,10 +67,10 @@ const Contactos = () => {
                             </span>
                         </div>
 
-                        {/* Botón de eliminar restaurado */}
+                      
                         <button
                             onClick={(e) => {
-                                e.stopPropagation(); // Evita que se abra el chat al hacer clic en borrar
+                                e.stopPropagation();
                                 eliminarChat(contacto._id);
                             }}
                             className='text-gray-400 hover:text-red-400 p-2 rounded-lg transition hover:bg-gray-700/50 text-sm'
